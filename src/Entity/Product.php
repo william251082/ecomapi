@@ -68,9 +68,23 @@ class Product
     private $createdAt;
 
     /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="yes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
 
     public function __construct()
     {
@@ -161,5 +175,22 @@ class Product
         $this->isPublished = $isPublished;
 
         return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
