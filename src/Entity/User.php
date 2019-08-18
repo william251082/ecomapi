@@ -59,7 +59,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user:read", "user:write", "product:item:get"})
      * @Assert\NotBlank()
      */
     private $username;
@@ -156,18 +156,6 @@ class User implements UserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    public function getOwner(): ?self
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?self $owner): self
-    {
-        $this->owner = $owner;
 
         return $this;
     }

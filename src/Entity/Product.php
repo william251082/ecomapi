@@ -16,7 +16,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *     collectionOperations={"get", "post"},
- *     itemOperations={"get", "put"},
+ *     itemOperations={
+ *          "get"={
+ *              "normalization_context"={"groups"={"product:read", "product:item:get"}}
+ *          },
+ *          "put"
+ *      },
  *     normalizationContext={"groups"={"product:read"}},
  *     denormalizationContext={"groups"={"product:write"}},
  *     attributes={
@@ -42,7 +47,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"product:read", "product:write"})
+     * @Groups({"product:read", "product:write", "user:read"})
      * @Assert\NotBlank()
      * @Assert\Length(min=1, max=50, maxMessage="Give a product name in 50 chars or less")
      */
@@ -57,7 +62,7 @@ class Product
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"product:read", "product:write"})
+     * @Groups({"product:read", "product:write", "user:read"})
      * @Assert\NotBlank()
      */
     private $price;
@@ -81,7 +86,7 @@ class Product
     private $isPublished = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="yes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"product:read", "product:write"})
      */
