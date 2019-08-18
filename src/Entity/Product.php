@@ -83,6 +83,7 @@ class Product
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="yes")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"product:read", "product:write"})
      */
     private $owner;
 

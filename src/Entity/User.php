@@ -65,19 +65,14 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="owner")
+     * @Groups({"user:read", "user:write"})
      */
-    private $owner;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="owner")
-     */
-    private $users;
+    private $products;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,30 +173,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|self[]
+     * @return Collection|Product[]
      */
-    public function getUsers(): Collection
+    public function getProducts(): Collection
     {
-        return $this->users;
+        return $this->products;
     }
 
-    public function addUser(self $user): self
+    public function addProducts(Product $product): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setOwner($this);
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setOwner($this);
         }
 
         return $this;
     }
 
-    public function removeUser(self $user): self
+    public function removeUser(Product $product): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
             // set the owning side to null (unless already changed)
-            if ($user->getOwner() === $this) {
-                $user->setOwner(null);
+            if ($product->getOwner() === $this) {
+                $product->setOwner(null);
             }
         }
 
