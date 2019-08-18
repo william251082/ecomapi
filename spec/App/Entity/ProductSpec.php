@@ -26,4 +26,9 @@ class ProductSpec extends ObjectBehavior
 
         $this->getDescription()->shouldReturn('Product description');
     }
+
+    function it_should_be_constructed_with_createdAt()
+    {
+        $this->beConstructedWith(new \DateTimeImmutable(), true);
+    }
 }
