@@ -19,7 +19,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"product:read"}},
  *     denormalizationContext={"groups"={"product:write"}},
  *     attributes={
- *          "pagination_items_per_page"=10
+ *          "pagination_items_per_page"=10,
+ *          "formats"={"jsonld", "json", "html", "jsonhal", "csv"={"text/csv"}}
  *     }
  *      )
  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
