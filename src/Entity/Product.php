@@ -47,7 +47,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"product:read", "product:write", "user:read"})
+     * @Groups({"product:read", "product:write", "user:read", "user:write"})
      * @Assert\NotBlank()
      * @Assert\Length(min=1, max=50, maxMessage="Give a product name in 50 chars or less")
      */
@@ -62,7 +62,7 @@ class Product
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"product:read", "product:write", "user:read"})
+     * @Groups({"product:read", "product:write", "user:read", "user:write"})
      * @Assert\NotBlank()
      */
     private $price;
@@ -135,7 +135,7 @@ class Product
     /**
      * Product description in raw text.
      *
-     * @Groups({"product:write"})
+     * @Groups({"product:write", "user:write"})
      *
      * @param string $description
      * @return Product
