@@ -65,7 +65,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="owner", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="owner", cascade={"persist"}, orphanRemoval=true)
      * @Groups({"user:read", "user:write"})
      * @Assert\Valid()
      */
