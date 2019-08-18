@@ -89,6 +89,7 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"product:read", "product:write"})
+     * @Assert\Valid()
      */
     private $owner;
 
