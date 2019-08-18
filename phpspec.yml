@@ -1,0 +1,4 @@
+suites:
+  default:
+    namespace: App
+    ps4_prefix: App
