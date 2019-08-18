@@ -6,6 +6,8 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -19,6 +21,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      )
  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
  * @ApiFilter(SearchFilter::class, properties={"name":"partial", "description":"partial"})
+ * @ApiFilter(RangeFilter::class, properties={"price"})
+ * @ApiFilter(PropertyFilter::class)
  *
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
@@ -84,6 +88,18 @@ class Product
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    /**
+     * @Groups("product:read")
+     */
+    public function getShortDescription(): ?string
+    {
+       if (strlen($this->description) < 10) {
+           return $this->description;
+       }
+
+       return substr($this->description, 0, 40). '...';
     }
 
     /**
