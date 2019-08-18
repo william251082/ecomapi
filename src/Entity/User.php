@@ -168,7 +168,7 @@ class User implements UserInterface
         return $this->products;
     }
 
-    public function addProducts(Product $product): self
+    public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
@@ -178,7 +178,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeUser(Product $product): self
+    public function removeProduct(Product $product): self
     {
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
