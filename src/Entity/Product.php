@@ -11,6 +11,7 @@ use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -42,18 +43,22 @@ class Product
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"product:read", "product:write"})
+     * @Assert\NotBlank()
+     * @Assert\Length(min=1, max=50, maxMessage="Give a product name in 50 chars or less")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"product:read"})
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"product:read", "product:write"})
+     * @Assert\NotBlank()
      */
     private $price;
 
