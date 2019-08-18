@@ -17,7 +17,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     collectionOperations={"get", "post"},
  *     itemOperations={"get", "put"},
  *     normalizationContext={"groups"={"product:read"}},
- *     denormalizationContext={"groups"={"product:write"}}
+ *     denormalizationContext={"groups"={"product:write"}},
+ *     attributes={
+ *          "pagination_items_per_page"=10
+ *     }
  *      )
  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
  * @ApiFilter(SearchFilter::class, properties={"name":"partial", "description":"partial"})
