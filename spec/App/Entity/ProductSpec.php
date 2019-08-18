@@ -19,4 +19,11 @@ class ProductSpec extends ObjectBehavior
 
         $this->getName()->shouldReturn('coffee');
     }
+
+    function it_should_return_description()
+    {
+        $this->setDescription('Product description');
+
+        $this->getDescription()->shouldReturn('Product description');
+    }
 }
