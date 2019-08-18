@@ -12,4 +12,11 @@ class ProductSpec extends ObjectBehavior
     {
         $this->shouldHaveType(Product::class);
     }
+
+    function it_should_allow_to_set_name()
+    {
+        $this->setName('coffee');
+
+        $this->getName()->shouldReturn('coffee');
+    }
 }
