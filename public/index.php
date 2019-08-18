@@ -10,7 +10,9 @@ require __DIR__.'/../vendor/autoload.php';
 // The check is to ensure we don't use .env in production
 if (!isset($_SERVER['APP_ENV']) || !isset($_ENV['APP_ENV'])) {
     if (!class_exists(Dotenv::class)) {
-        throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
+        throw new \RuntimeException(
+            'APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.'
+        );
     }
     // Load either .env or .env.test for running tests
     $env = $_SERVER['APP_ENV'] ?? ($_ENV['APP_ENV'] ?? 'dev') === 'dev' ? '' : '.test';
