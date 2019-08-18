@@ -6,12 +6,15 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Carbon\Carbon;
 use Carbon\Factory;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
  *     collectionOperations={"get", "post"},
- *     itemOperations={"get", "put"}
- * )
+ *     itemOperations={"get", "put"},
+ *     normalizationContext={"groups"={"product:read"}},
+ *     denormalizationContext={"groups"={"product:write"}}
+ *      )
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
 class Product
@@ -25,16 +28,19 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"product:read", "product:write"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"product:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"product:read", "product:write"})
      */
     private $price;
 
@@ -46,7 +52,7 @@ class Product
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isPublished;
+    private $isPublished = false;
 
     public function __construct()
     {
@@ -75,6 +81,14 @@ class Product
         return $this->description;
     }
 
+    /**
+     * Product description in raw text.
+     *
+     * @Groups({"product:write"})
+     *
+     * @param string $description
+     * @return Product
+     */
     public function setDescription(string $description): self
     {
         $this->description = nl2br($description);
@@ -99,6 +113,9 @@ class Product
         return $this->createdAt;
     }
 
+    /**
+     * @Groups({"product:read"})
+     */
     public function getCreatedAgo(): string
     {
         return Carbon::instance($this->getCreatedAt())->diffForHumans();
