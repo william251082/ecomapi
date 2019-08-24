@@ -45,7 +45,7 @@ class FeatureContext extends \Behatch\Context\RestContext
         $schemaTool->dropSchema($classes);
         $schemaTool->createSchema($classes);
 
-        // Load fixtures and executre
+        // Load fixtures and execute
         $purger = new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->manager);
 
         $fixturesExecutor = new \Doctrine\Common\DataFixtures\Executor\ORMExecutor($this->manager, $purger);

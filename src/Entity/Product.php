@@ -70,7 +70,7 @@ class Product
      * @Groups({"product:read", "product:write", "user:read", "user:write"})
      * @Assert\NotBlank()
      */
-    private $price;
+    private $price = 0;
 
     /**
      * @ORM\Column(type="datetime")

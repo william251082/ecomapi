@@ -7,11 +7,12 @@ Feature:
     And I send a "POST" request to "api/products"
     """
     {
-      "name": "new",
-      "description": "new",
-      "price": 1000,
-      "createdAt": "2019-08-18T13:32:12.219Z",
-      "isPublished": true
+      "name": "Dormouse.123",
+      "description": "123Alice looked round, eager to see what was going to happen next. First, she tried another question.",
+      "price": 123,
+      "owner": "/api/users/4",
+      "shortDescription": "123Alice looked round, eager to see what wa...",
+      "createdAgo": "3 months ago"
      }
     """
     Then  the response status code should be 201
