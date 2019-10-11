@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -34,20 +39,22 @@ class Taxon
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $content;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $author;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Products", mappedBy="post")
+     * @ApiSubresource()
      */
     private $products;
 
@@ -109,7 +116,7 @@ class Taxon
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 
