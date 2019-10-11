@@ -6,10 +6,10 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -47,16 +47,21 @@ class Taxon
     private $content;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="post")
+     * @ApiSubresource()
+     */
+    private $products;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Products", mappedBy="post")
-     * @ApiSubresource()
-     */
-    private $products;
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,7 +128,7 @@ class Taxon
         return $this;
     }
 
-    public function getProducts(): ?string
+    public function getProducts(): Collection
     {
         return $this->products;
     }

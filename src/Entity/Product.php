@@ -90,6 +90,12 @@ class Product
      */
     private $owner;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $taxon;
+
     public function __construct()
     {
     }
@@ -184,6 +190,17 @@ class Product
     {
         $this->owner = $owner;
 
+        return $this;
+    }
+
+    public function getTaxon(): ?Taxon
+    {
+        return $this->taxon;
+    }
+
+    public function setPost(Taxon $taxon): self
+    {
+        $this->taxon = $taxon;
         return $this;
     }
 

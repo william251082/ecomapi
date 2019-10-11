@@ -6,7 +6,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -77,13 +76,18 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="owner", cascade={"persist"}, orphanRemoval=true)
      * @Groups({"user:read", "user:write"})
      * @Assert\Valid()
-     * @ApiSubresource()
      */
     private $products;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Taxon", mappedBy="author")
+     */
+    private $taxons;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->taxons = new ArrayCollection();
     }
 
     public function getId(): ?int
