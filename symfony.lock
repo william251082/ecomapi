@@ -168,6 +168,9 @@
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.37"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },
@@ -352,6 +355,12 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v4.3.5"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v1.1.7"
     },
     "symfony/http-foundation": {
         "version": "v4.3.3"

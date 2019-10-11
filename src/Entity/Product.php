@@ -10,6 +10,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -43,6 +44,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -73,19 +76,6 @@ class Product
     private $price = 0;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @param mixed $createdAt
-     */
-    public function setCreatedAt($createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished = false;
@@ -100,7 +90,6 @@ class Product
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -162,11 +151,6 @@ class Product
         $this->price = $price;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
     }
 
     /**
