@@ -91,7 +91,7 @@ class Product
     private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Taxon", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $taxon;
@@ -198,7 +198,7 @@ class Product
         return $this->taxon;
     }
 
-    public function setPost(Taxon $taxon): self
+    public function setTaxon(?Taxon $taxon): self
     {
         $this->taxon = $taxon;
         return $this;

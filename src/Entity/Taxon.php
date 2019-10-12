@@ -47,13 +47,14 @@ class Taxon
     private $content;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="taxon", fetch="EXTRA_LAZY")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      * @ApiSubresource()
      */
     private $products;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
