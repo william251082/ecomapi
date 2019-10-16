@@ -133,11 +133,4 @@ class Taxon
     {
         return $this->products;
     }
-
-    public function setProducts(string $products): self
-    {
-        $this->products = $products;
-
-        return $this;
-    }
 }

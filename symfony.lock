@@ -186,6 +186,9 @@
     "justinrainbow/json-schema": {
         "version": "5.2.8"
     },
+    "league/csv": {
+        "version": "9.4.0"
+    },
     "nelmio/cors-bundle": {
         "version": "1.5",
         "recipe": {
