@@ -10,7 +10,7 @@ Feature:
       "name": "Dormouse.123",
       "description": "123Alice looked round, eager to see what was going to happen next. First, she tried another question.",
       "price": 123,
-      "owner": "/api/users/4",
+      "owner": "/api/users/3",
       "shortDescription": "123Alice looked round, eager to see what wa...",
       "createdAgo": "3 months ago"
      }

@@ -1,14 +1,9 @@
 <?php
 
-use Behat\Behat\Context\Context;
+use Behatch\Context\RestContext;
 
-class FeatureContext extends \Behatch\Context\RestContext
+class FeatureContext extends RestContext
 {
-    /**
-     * @var \App\DataFixtures\AppFixtures
-     */
-    private $fixtures;
-
     /**
      * @var \Coduo\PHPMatcher\Matcher
      */
@@ -18,22 +13,39 @@ class FeatureContext extends \Behatch\Context\RestContext
      * @var \Doctrine\ORM\EntityManagerInterface
      */
     private $manager;
+    /**
+     * @var \App\DataFixtures\ProductFixtures
+     */
+    private $productFixtures;
+    /**
+     * @var \App\DataFixtures\TaxonFixtures
+     */
+    private $taxonFixtures;
+    /**
+     * @var \App\DataFixtures\UserFixtures
+     */
+    private $userFixtures;
 
     public function __construct(
         \Behatch\HttpCall\Request $request,
-        \App\DataFixtures\AppFixtures $fixtures,
+        \App\DataFixtures\ProductFixtures $productFixtures,
+        \App\DataFixtures\TaxonFixtures $taxonFixtures,
+        \App\DataFixtures\UserFixtures $userFixtures,
         \Doctrine\ORM\EntityManagerInterface $manager
     )
     {
         parent::__construct($request);
-        $this->fixtures = $fixtures;
         $this->matcher =
             (new \Coduo\PHPMatcher\Factory\SimpleFactory())->createMatcher();
         $this->manager = $manager;
+        $this->productFixtures = $productFixtures;
+        $this->taxonFixtures = $taxonFixtures;
+        $this->userFixtures = $userFixtures;
     }
 
     /**
      * @BeforeScenario @createSchema
+     * @throws \Doctrine\ORM\Tools\ToolsException
      */
     public function createSchema()
     {
@@ -50,7 +62,9 @@ class FeatureContext extends \Behatch\Context\RestContext
 
         $fixturesExecutor = new \Doctrine\Common\DataFixtures\Executor\ORMExecutor($this->manager, $purger);
         $fixturesExecutor->execute([
-            $this->fixtures
+            $this->productFixtures,
+            $this->taxonFixtures,
+            $this->userFixtures
         ]);
 
     }

@@ -7,5 +7,5 @@ if (!isset($_SERVER['APP_ENV'])) {
     if (!class_exists(Dotenv::class)) {
         throw new \RuntimeException('APP_ENV variable is not defined.');
     }
-    (new Dotenv())->load(__DIR__.'/../../.env.test');
+    (new Dotenv())->load(__DIR__.'/../../.env.test.local');
 }
