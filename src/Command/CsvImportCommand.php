@@ -63,8 +63,8 @@ class CsvImportCommand extends Command
         $io->progressStart(count([$records]));
 
         $user = new User();
-        $user->setUsername('john');
-        $user->setEmail('john@doe.com');
+        $user->setUsername(sprintf('john_%d', rand(1, 50)));
+        $user->setEmail(sprintf('john_%d@doe.com', rand(1, 50)));
         $user->setRoles(['ROLE_USER']);
         $user->setPassword('engage');
         $user->setCreatedAt(new \DateTime());
@@ -90,6 +90,7 @@ class CsvImportCommand extends Command
             $product->setDescription($row['description']);
             $product->setPrice($row['price']);
             $product->setIsPublished($row['is_published']);
+            $product->setPublishedAt(new \DateTime($row['published_at']));
             $product->setCreatedAt(new \DateTime($row['created_at']));
             $product->setUpdatedAt(new \DateTime($row['updated_at']));
             $product->setTaxon($taxon);

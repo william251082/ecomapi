@@ -6,5 +6,5 @@ use DateTimeInterface;
 
 interface PublishedDateEntityInterface
 {
-    public function setPublished(DateTimeInterface $published): PublishedDateEntityInterface;
+    public function setPublishedAt(DateTimeInterface $published): PublishedDateEntityInterface;
 }

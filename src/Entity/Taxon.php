@@ -39,11 +39,6 @@ class Taxon implements AuthoredEntityInterface, PublishedDateEntityInterface
     private $publishedAt;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $published;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
@@ -93,21 +88,9 @@ class Taxon implements AuthoredEntityInterface, PublishedDateEntityInterface
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTimeInterface $publishedAt): self
+    public function setPublishedAt(\DateTimeInterface $publishedAt): PublishedDateEntityInterface
     {
         $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
-
-    public function getPublished(): ?DateTimeInterface
-    {
-        return $this->published;
-    }
-
-    public function setPublished(DateTimeInterface $published): PublishedDateEntityInterface
-    {
-        $this->published = $published;
 
         return $this;
     }

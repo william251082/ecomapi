@@ -87,7 +87,7 @@ class Product implements OwnedEntityInterface, PublishedDateEntityInterface
     /**
      * @ORM\Column(type="datetime")
      */
-    private $published;
+    private $publishedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
@@ -188,13 +188,13 @@ class Product implements OwnedEntityInterface, PublishedDateEntityInterface
         return $this;
     }
 
-    public function getPublished(): ?DateTimeInterface
+    public function getPublishedAt(): ?DateTimeInterface
     {
-        return $this->published;
+        return $this->publishedAt;
     }
-    public function setPublished(DateTimeInterface $published): PublishedDateEntityInterface
+    public function setPublishedAt(DateTimeInterface $publishedAt): PublishedDateEntityInterface
     {
-        $this->published = $published;
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }
