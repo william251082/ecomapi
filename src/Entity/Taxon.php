@@ -6,16 +6,18 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\TaxonRepository")
  */
-class Taxon
+class Taxon implements AuthoredEntityInterface, PublishedDateEntityInterface
 {
     use TimestampableEntity;
 
@@ -35,6 +37,11 @@ class Taxon
      * @ORM\Column(type="datetime")
      */
     private $publishedAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $published;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -93,6 +100,18 @@ class Taxon
         return $this;
     }
 
+    public function getPublished(): ?DateTimeInterface
+    {
+        return $this->published;
+    }
+
+    public function setPublished(DateTimeInterface $published): PublishedDateEntityInterface
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
     public function getContent(): ?string
     {
         return $this->content;
@@ -122,7 +141,7 @@ class Taxon
         return $this->author;
     }
 
-    public function setAuthor(User $author): self
+    public function setAuthor(UserInterface $author): AuthoredEntityInterface
     {
         $this->author = $author;
 

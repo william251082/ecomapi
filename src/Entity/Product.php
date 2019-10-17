@@ -11,8 +11,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Carbon\Carbon;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -44,7 +46,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
-class Product
+class Product implements OwnedEntityInterface, PublishedDateEntityInterface
 {
     use TimestampableEntity;
 
@@ -81,6 +83,11 @@ class Product
      * @ORM\Column(type="boolean")
      */
     private $isPublished = false;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $published;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
@@ -181,12 +188,23 @@ class Product
         return $this;
     }
 
+    public function getPublished(): ?DateTimeInterface
+    {
+        return $this->published;
+    }
+    public function setPublished(DateTimeInterface $published): PublishedDateEntityInterface
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
     public function getOwner(): ?User
     {
         return $this->owner;
     }
 
-    public function setOwner(?User $owner): self
+    public function setOwner(UserInterface $owner): OwnedEntityInterface
     {
         $this->owner = $owner;
 
