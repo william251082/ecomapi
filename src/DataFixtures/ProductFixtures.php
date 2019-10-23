@@ -20,6 +20,7 @@ class ProductFixtures extends BaseFixtures implements DependentFixtureInterface
             );
             $product->setPrice($this->faker->randomNumber(2));
             $product->setIsPublished($this->faker->boolean(60));
+            $product->setPublishedAt($this->faker->dateTimeBetween('-1 months', '-1 seconds'));
             $this->setDateTimes($product);
 
             $product->setOwner($this->getRandomReference('admin_users'));
